@@ -187,23 +187,23 @@ ifeq ($(TW_INCLUDE_CRYPTO), true)
         RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libprotobuf-cpp-lite.so
         RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libsoftkeymasterdevice.so
         ifeq ($(shell test $(PLATFORM_SDK_VERSION) -gt 25; echo $$?),0)
-            ifneq ($(wildcard android/hardware/keymaster/3.0/IKeymasterDevice.h),)
-                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.gatekeeper@1.0.so
-                RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/hwservicemanager
-                RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/avbctl
-                RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/hwservicemanager
-                RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/keystore
-                RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/keystore_cli
-                RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/servicemanager
-                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.system.wifi.keystore@1.0.so
+            RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.gatekeeper@1.0.so
+            RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/hwservicemanager
+            RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/avbctl
+            RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/hwservicemanager
+            RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/keystore
+            RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/keystore_cli
+            RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/servicemanager
+            RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.system.wifi.keystore@1.0.so
+            ifneq ($(wildcard system/keymaster/keymaster_stl.cpp),)
                 RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster_portable.so
                 RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster_staging.so
-                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libwifikeystorehal.so
-                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.weaver@1.0.so
-                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libhardware_legacy.so
-            else
-                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster1.so
             endif
+            RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libwifikeystorehal.so
+            ifneq ($(wildcard hardware/interfaces/weaver/Android.bp),)
+                RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.weaver@1.0.so
+            endif
+            RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libhardware_legacy.so
         else
             RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster1.so
         endif
@@ -303,8 +303,8 @@ ifeq ($(shell test $(PLATFORM_SDK_VERSION) -gt 25; echo $$?),0)
     RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libhidl-gen-utils.so
     RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libvintf.so
     RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libtinyxml2.so
-    ifneq ($(wildcard android/hardware/keymaster/3.0/IKeymasterDevice.h),)
-        RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hidl.token@1.0.so
+    RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hidl.token@1.0.so
+    ifneq ($(wildcard system/core/libkeyutils/Android.bp),)
         RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libkeyutils.so
     endif
 endif
